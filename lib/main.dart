@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:new_platform_test/SignIn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,26 +9,21 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'New Platform',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
         fontFamily: 'Rubik',
+        appBarTheme: const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+        ))
       ),
       home: const MyHomePage(),
+
     );
   }
 }
@@ -50,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -71,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
         body: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding:  EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           Expanded(
@@ -79,9 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SvgPicture.asset('static/img/Start.svg',
-                    semanticsLabel: 'StartImg',),
-                const Text(
+                SvgPicture.asset(
+                  'static/img/Start.svg',
+                  semanticsLabel: 'StartImg',
+                  width: MediaQuery.of(context).size.width,
+                ),
+                 Text(
                   'НОВАЯ ПЛАТФОРМА',
                   style: TextStyle(
                       fontFamily: 'Rubik-Bold',
@@ -90,8 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Color(0xff251450)),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: const Text(
+                  margin:  EdgeInsets.only(top: 10),
+                  child:  Text(
                     'Универсальная образовательная платформа',
                     style: TextStyle(
                       color: Color(0xff685D84),
@@ -106,16 +106,22 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Container(
-              margin: const EdgeInsets.only(top: 10),
+              margin:  EdgeInsets.only(top: 10),
               child: Center(
                 child: SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SignIn(),
+                          ),
+                        );
+                      },
                       style: ButtonStyle(
-                          side: MaterialStateProperty.all(const BorderSide(
+                          side: MaterialStateProperty.all( BorderSide(
                               color: Color(0xff8C63A9),
                               width: 2,
                               style: BorderStyle.solid)),
@@ -124,11 +130,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           )),
-                          overlayColor:
-                              MaterialStateProperty.all(Color(0xffF2EDF4))),
+                          overlayColor: MaterialStateProperty.all(
+                               Color(0xffF2EDF4))),
                       child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 12),
-                          child: const Text(
+                          margin:  EdgeInsets.symmetric(vertical: 12),
+                          child:  Text(
                             'ВХОД',
                             style: TextStyle(
                                 color: Color(0xff8C63A9),
