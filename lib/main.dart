@@ -9,21 +9,20 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'New Platform',
       theme: ThemeData(
-        fontFamily: 'Rubik',
-        appBarTheme: const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.light,
-          statusBarIconBrightness: Brightness.light,
-        ))
-      ),
-      home: const MyHomePage(),
-
+          fontFamily: 'Rubik',
+          appBarTheme: AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.light,
+            statusBarIconBrightness: Brightness.light,
+          ))),
+      home: MyHomePage(),
     );
   }
 }
@@ -45,19 +44,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -68,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
         body: Container(
-      padding:  EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           Expanded(
@@ -81,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   semanticsLabel: 'StartImg',
                   width: MediaQuery.of(context).size.width,
                 ),
-                 Text(
+                Text(
                   'НОВАЯ ПЛАТФОРМА',
                   style: TextStyle(
                       fontFamily: 'Rubik-Bold',
@@ -90,8 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Color(0xff251450)),
                 ),
                 Container(
-                  margin:  EdgeInsets.only(top: 10),
-                  child:  Text(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Text(
                     'Универсальная образовательная платформа',
                     style: TextStyle(
                       color: Color(0xff685D84),
@@ -108,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             flex: 2,
             child: Container(
-              margin:  EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 10),
               child: Center(
                 child: SizedBox(
                   width: double.infinity,
@@ -121,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       },
                       style: ButtonStyle(
-                          side: MaterialStateProperty.all( BorderSide(
+                          side: MaterialStateProperty.all(BorderSide(
                               color: Color(0xff8C63A9),
                               width: 2,
                               style: BorderStyle.solid)),
@@ -130,11 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           )),
-                          overlayColor: MaterialStateProperty.all(
-                               Color(0xffF2EDF4))),
+                          overlayColor:
+                              MaterialStateProperty.all(Color(0xffF2EDF4))),
                       child: Container(
-                          margin:  EdgeInsets.symmetric(vertical: 12),
-                          child:  Text(
+                          margin: EdgeInsets.symmetric(vertical: 12),
+                          child: const Text(
                             'ВХОД',
                             style: TextStyle(
                                 color: Color(0xff8C63A9),
