@@ -6,6 +6,7 @@ class CustomInput extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final FormFieldSetter<String> onSaved;
+  final ValueChanged<String> onChange;
   final FormFieldValidator<String> validator;
 
   const CustomInput(
@@ -14,6 +15,7 @@ class CustomInput extends StatefulWidget {
       this.keyboardType,
       this.obscureText = false,
       required this.onSaved,
+      required this.onChange,
       required this.validator});
 
   @override
@@ -38,6 +40,7 @@ class _CustomInputState extends State<CustomInput> {
       onTap: () {
         Scrollable.ensureVisible(context);
       },
+      onChanged: widget.onChange,
       onSaved: widget.onSaved,
       validator: widget.validator,
       keyboardType: widget.keyboardType,
@@ -57,16 +60,16 @@ class _CustomInputState extends State<CustomInput> {
         fillColor: const Color(0xffF9F9F9),
         filled: true,
         labelStyle: MaterialStateTextStyle.resolveWith((states) {
-          if (states.contains(MaterialState.error)) {
-            return const TextStyle(color: Color(0xffF45D3E));
-          }
-          return const TextStyle(color: Color(0xff685D84));
+          return TextStyle(
+            color: Color(
+                states.contains(MaterialState.error) ? 0xffF45D3E : 0xff685D84),
+          );
         }),
         floatingLabelStyle: MaterialStateTextStyle.resolveWith((states) {
-          if (states.contains(MaterialState.error)) {
-            return const TextStyle(color: Color(0xffF45D3E));
-          }
-          return const TextStyle(color: Color(0xff8C63A9));
+          return TextStyle(
+            color: Color(
+                states.contains(MaterialState.error) ? 0xffF45D3E : 0xff8C63A9),
+          );
         }),
         suffixIcon: widget.obscureText
             ? IconButton(

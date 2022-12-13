@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:new_platform_test/SignIn.dart';
+import 'package:new_platform_test/component/custom_button.dart';
+import 'package:new_platform_test/view/start/sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,13 +17,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'New Platform',
       theme: ThemeData(
-          fontFamily: 'Rubik',
-          appBarTheme: AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
+        fontFamily: 'Rubik',
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
             statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.light,
-          ))),
-      home: MyHomePage(),
+          ),
+        ),
+      ),
+      home: const MyHomePage(),
     );
   }
 }
@@ -53,87 +56,67 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        body: Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SvgPicture.asset(
-                  'static/img/Start.svg',
-                  semanticsLabel: 'StartImg',
-                  width: MediaQuery.of(context).size.width,
-                ),
-                Text(
-                  'НОВАЯ ПЛАТФОРМА',
-                  style: TextStyle(
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SvgPicture.asset(
+                    'static/img/Start.svg',
+                    semanticsLabel: 'StartImg',
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  const Text(
+                    'НОВАЯ ПЛАТФОРМА',
+                    style: TextStyle(
                       fontFamily: 'Rubik-Bold',
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff251450)),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  child: Text(
-                    'Универсальная образовательная платформа',
-                    style: TextStyle(
-                      color: Color(0xff685D84),
-                      fontFamily: 'Rubik-Medium',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      color: Color(0xff251450),
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => SignIn(),
-                          ),
-                        );
-                      },
-                      style: ButtonStyle(
-                          side: MaterialStateProperty.all(BorderSide(
-                              color: Color(0xff8C63A9),
-                              width: 2,
-                              style: BorderStyle.solid)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          )),
-                          overlayColor:
-                              MaterialStateProperty.all(Color(0xffF2EDF4))),
-                      child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 12),
-                          child: const Text(
-                            'ВХОД',
-                            style: TextStyle(
-                                color: Color(0xff8C63A9),
-                                fontFamily: 'Rubik-Bold',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700),
-                          ))),
-                ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: const Text(
+                      'Универсальная образовательная платформа',
+                      style: TextStyle(
+                        color: Color(0xff685D84),
+                        fontFamily: 'Rubik-Medium',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
               ),
             ),
-          )
-        ],
+            Expanded(
+              flex: 2,
+              child: Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: Center(
+                  child: CustomButton(
+                    title: 'вход',
+                    mode: ButtonMode.outline,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SignIn(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
