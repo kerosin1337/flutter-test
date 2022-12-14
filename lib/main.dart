@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:new_platform_test/component/custom_button.dart';
+import 'package:new_platform_test/extension/color_extension.dart';
 import 'package:new_platform_test/view/start/sign_in.dart';
 
 void main() {
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontFamily: 'Rubik-Bold',
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xff251450),
+                      color: ColorsNP.darkBlue,
                     ),
                   ),
                   Container(
@@ -84,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: const Text(
                       'Универсальная образовательная платформа',
                       style: TextStyle(
-                        color: Color(0xff685D84),
+                        color: ColorsNP.darkPurple,
                         fontFamily: 'Rubik-Medium',
                         fontSize: 18,
                         fontWeight: FontWeight.w500,

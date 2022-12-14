@@ -5,6 +5,8 @@ import 'package:new_platform_test/component/custom_button.dart';
 import 'package:new_platform_test/view/main/bottom-tab.dart';
 import 'package:new_platform_test/component/custom_input.dart';
 
+import '../../extension/color_extension.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -49,7 +51,7 @@ class _SignInState extends State<SignIn> {
                   const Text(
                     'Войти в систему',
                     style: TextStyle(
-                      color: Color(0xff251450),
+                      color: ColorsNP.darkBlue,
                       fontWeight: FontWeight.w700,
                       fontSize: 24,
                       fontFamily: 'Rubik-Bold',
@@ -151,7 +153,7 @@ class _SignInState extends State<SignIn> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(
-          color: Color(0xff685D84),
+          color: ColorsNP.purple,
         ),
       ),
       resizeToAvoidBottomInset: false,

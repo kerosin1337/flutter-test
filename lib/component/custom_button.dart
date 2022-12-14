@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:new_platform_test/extension/color_extension.dart';
 
 enum ButtonMode {
   outline,
@@ -9,12 +12,16 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final ButtonMode mode;
   final String title;
+  final Color titleColor;
+  final Icon? icon;
 
   const CustomButton({
     super.key,
     required this.onPressed,
     this.mode = ButtonMode.contained,
     required this.title,
+    this.icon,
+    this.titleColor = ColorsNP.purple,
   });
 
   @override
@@ -30,7 +37,7 @@ class CustomButton extends StatelessWidget {
               return ButtonStyle(
                 side: MaterialStateProperty.all(
                   const BorderSide(
-                      color: Color(0xff8C63A9),
+                      color: ColorsNP.purple,
                       width: 2,
                       style: BorderStyle.solid),
                 ),
@@ -40,14 +47,14 @@ class CustomButton extends StatelessWidget {
                   ),
                 ),
                 overlayColor: MaterialStateProperty.all(
-                  const Color(0xffF2EDF4),
+                  ColorsNP.gray,
                 ),
               );
             case ButtonMode.contained:
               return ButtonStyle(
                 side: MaterialStateProperty.all(
                   const BorderSide(
-                      color: Color(0xff8C63A9),
+                      color: ColorsNP.purple,
                       width: 2,
                       style: BorderStyle.solid),
                 ),
@@ -57,33 +64,39 @@ class CustomButton extends StatelessWidget {
                   ),
                 ),
                 overlayColor: MaterialStateProperty.all(
-                  const Color(0xff9d81ba),
+                  ColorsNP.lightPurple,
                 ),
                 backgroundColor: MaterialStateProperty.all(
-                  const Color(0xff8C63A9),
+                  ColorsNP.purple,
                 ),
               );
           }
         }(),
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 12),
-          child: Text(
-            title.toUpperCase(),
-            style: TextStyle(
-              color: () {
-                switch (mode) {
-                  case ButtonMode.outline:
-                    return const Color(0xff8C63A9);
-                  case ButtonMode.contained:
-                    return Colors.white;
-                  default:
-                    return Colors.black;
-                }
-              }(),
-              fontFamily: 'Rubik-Bold',
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
+          child: Row(
+            mainAxisAlignment: icon != null
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
+            children: [
+              Text(
+                title.toUpperCase(),
+                style: TextStyle(
+                  color: () {
+                    switch (mode) {
+                      case ButtonMode.outline:
+                        return titleColor;
+                      case ButtonMode.contained:
+                        return Colors.white;
+                    }
+                  }(),
+                  fontFamily: 'Rubik-Bold',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              icon != null ? icon! : const SizedBox.shrink()
+            ],
           ),
         ),
       ),

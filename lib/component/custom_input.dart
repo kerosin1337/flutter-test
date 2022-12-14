@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../extension/color_extension.dart';
+
 class CustomInput extends StatefulWidget {
   final String labelText;
   final TextInputType? keyboardType;
@@ -53,7 +55,7 @@ class _CustomInputState extends State<CustomInput> {
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xff8C63A9)),
+          borderSide: BorderSide(color: ColorsNP.purple),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         labelText: widget.labelText,
@@ -61,20 +63,22 @@ class _CustomInputState extends State<CustomInput> {
         filled: true,
         labelStyle: MaterialStateTextStyle.resolveWith((states) {
           return TextStyle(
-            color: Color(
-                states.contains(MaterialState.error) ? 0xffF45D3E : 0xff685D84),
+            color: states.contains(MaterialState.error)
+                ? ColorsNP.tomato
+                : ColorsNP.darkPurple,
           );
         }),
         floatingLabelStyle: MaterialStateTextStyle.resolveWith((states) {
           return TextStyle(
-            color: Color(
-                states.contains(MaterialState.error) ? 0xffF45D3E : 0xff8C63A9),
+            color: states.contains(MaterialState.error)
+                ? ColorsNP.tomato
+                : ColorsNP.purple,
           );
         }),
         suffixIcon: widget.obscureText
             ? IconButton(
                 icon: Icon(_secure ? Icons.visibility : Icons.visibility_off,
-                    color: const Color(0xffABA1C5)),
+                    color: ColorsNP.lightPurple),
                 onPressed: () {
                   HapticFeedback.lightImpact();
                   setState(() {
@@ -83,7 +87,7 @@ class _CustomInputState extends State<CustomInput> {
                 },
               )
             : null,
-        errorStyle: const TextStyle(color: Color(0xffF45D3E)),
+        errorStyle: const TextStyle(color: ColorsNP.tomato),
       ),
     );
   }

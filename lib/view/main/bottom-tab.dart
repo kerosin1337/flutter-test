@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_platform_test/view/main/profile/profile.dart';
 
+import '../../extension/color_extension.dart';
+
 class BottomTab extends StatefulWidget {
   const BottomTab({super.key});
 
@@ -35,7 +37,7 @@ class _BottomTabState extends State<BottomTab> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         titleTextStyle: const TextStyle(
-          color: Color(0xff251450),
+          color: ColorsNP.darkBlue,
           fontSize: 28,
           fontWeight: FontWeight.w700,
         ),
@@ -60,8 +62,8 @@ class _BottomTabState extends State<BottomTab> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xff8C63A9),
-        unselectedItemColor: const Color(0xffABA1C5),
+        selectedItemColor: ColorsNP.purple,
+        unselectedItemColor: ColorsNP.lightPurple,
         onTap: _onItemTapped,
       ),
     );
