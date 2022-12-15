@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:new_platform_test/extension/color_extension.dart';
 
@@ -37,9 +35,10 @@ class CustomButton extends StatelessWidget {
               return ButtonStyle(
                 side: MaterialStateProperty.all(
                   const BorderSide(
-                      color: ColorsNP.purple,
-                      width: 2,
-                      style: BorderStyle.solid),
+                    color: ColorsNP.purple,
+                    width: 2,
+                    style: BorderStyle.solid,
+                  ),
                 ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -55,7 +54,7 @@ class CustomButton extends StatelessWidget {
                 side: MaterialStateProperty.all(
                   const BorderSide(
                       color: ColorsNP.purple,
-                      width: 2,
+                      width: 0,
                       style: BorderStyle.solid),
                 ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

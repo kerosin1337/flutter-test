@@ -1,51 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../extension/color_extension.dart';
 
-class CustomInput extends StatefulWidget {
+// class CustomInput extends StatefulWidget {
+//   final String labelText;
+//   final TextInputType? keyboardType;
+//   final bool obscureText;
+//   final FormFieldSetter<String> onSaved;
+//   final ValueChanged<String> onChange;
+//   final FormFieldValidator<String> validator;
+//
+//   const CustomInput(
+//       {super.key,
+//       required this.labelText,
+//       this.keyboardType,
+//       this.obscureText = false,
+//       required this.onSaved,
+//       required this.onChange,
+//       required this.validator});
+//
+//   @override
+//   State<CustomInput> createState() => _CustomInputState();
+// }
+
+class CustomInput extends HookWidget {
   final String labelText;
   final TextInputType? keyboardType;
   final bool obscureText;
   final FormFieldSetter<String> onSaved;
   final ValueChanged<String> onChange;
   final FormFieldValidator<String> validator;
+  final String value;
 
-  const CustomInput(
-      {super.key,
-      required this.labelText,
-      this.keyboardType,
-      this.obscureText = false,
-      required this.onSaved,
-      required this.onChange,
-      required this.validator});
-
-  @override
-  State<CustomInput> createState() => _CustomInputState();
-}
-
-class _CustomInputState extends State<CustomInput> {
-  // final FocusNode _focusNode = FocusNode();
-  bool _secure = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _secure = widget.obscureText;
-  }
+  const CustomInput({
+    super.key,
+    required this.labelText,
+    this.keyboardType,
+    this.obscureText = false,
+    required this.onSaved,
+    required this.onChange,
+    required this.validator,
+    required this.value
+  });
 
   @override
   Widget build(BuildContext context) {
+    final secure = useState(false);
+
+    useEffect(() {
+      secure.value = obscureText;
+    }, []);
+
     return TextFormField(
       // focusNode: _focusNode,
-      obscureText: _secure,
+      obscureText: secure.value,
       onTap: () {
         Scrollable.ensureVisible(context);
       },
-      onChanged: widget.onChange,
-      onSaved: widget.onSaved,
-      validator: widget.validator,
-      keyboardType: widget.keyboardType,
+      onChanged: onChange,
+      onSaved: onSaved,
+      validator: validator,
+      keyboardType: keyboardType,
+      initialValue: value,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -58,7 +76,7 @@ class _CustomInputState extends State<CustomInput> {
           borderSide: BorderSide(color: ColorsNP.purple),
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        labelText: widget.labelText,
+        labelText: labelText,
         fillColor: const Color(0xffF9F9F9),
         filled: true,
         labelStyle: MaterialStateTextStyle.resolveWith((states) {
@@ -75,15 +93,13 @@ class _CustomInputState extends State<CustomInput> {
                 : ColorsNP.purple,
           );
         }),
-        suffixIcon: widget.obscureText
+        suffixIcon: obscureText
             ? IconButton(
-                icon: Icon(_secure ? Icons.visibility : Icons.visibility_off,
+                icon: Icon(secure.value ? Icons.visibility : Icons.visibility_off,
                     color: ColorsNP.lightPurple),
                 onPressed: () {
                   HapticFeedback.lightImpact();
-                  setState(() {
-                    _secure = !_secure;
-                  });
+                  secure.value = !secure.value;
                 },
               )
             : null,

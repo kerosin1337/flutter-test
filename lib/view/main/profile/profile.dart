@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:new_platform_test/component/custom_button.dart';
+import 'package:new_platform_test/main.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
-
 import '../../../extension/color_extension.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends HookWidget {
   const Profile({super.key});
 
-  @override
-  State<Profile> createState() => _ProfilePage();
-}
-
-class _ProfilePage extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -84,7 +80,64 @@ class _ProfilePage extends State<Profile> {
                   margin: const EdgeInsets.only(top: 60),
                   child: TouchableOpacity(
                     onTap: () {
-                      print('logout');
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Вы точно хотите выйти?'),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            // content: SingleChildScrollView(
+                            //   child: ListBody(
+                            //     children: const <Widget>[
+                            //       Text('This is a demo alert dialog.'),
+                            //       Text(
+                            //         'Would you like to approve of this message?',
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            actionsPadding: const EdgeInsets.only(
+                              right: 15,
+                              bottom: 15,
+                            ),
+                            actions: <Widget>[
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: TouchableOpacity(
+                                  child: const Text(
+                                    'Нет',
+                                    style: TextStyle(color: ColorsNP.purple),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: TouchableOpacity(
+                                  child: const Text(
+                                    'Да',
+                                    style: TextStyle(color: ColorsNP.tomato),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            const MyHomePage(),
+                                      ),
+                                      (route) => false,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     activeOpacity: 0.2,
                     child: Row(
@@ -100,9 +153,10 @@ class _ProfilePage extends State<Profile> {
                           child: const Text(
                             "Выйти из профиля",
                             style: TextStyle(
-                                color: ColorsNP.tomato,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,),
+                              color: ColorsNP.tomato,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         )
                       ],

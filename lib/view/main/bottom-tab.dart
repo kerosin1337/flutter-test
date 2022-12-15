@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:new_platform_test/view/main/major/main.dart';
 import 'package:new_platform_test/view/main/profile/profile.dart';
-
 import '../../extension/color_extension.dart';
 
-class BottomTab extends StatefulWidget {
-  const BottomTab({super.key});
+class BottomTab extends HookWidget {
+  BottomTab({super.key});
 
-  @override
-  State<BottomTab> createState() => _BottomTabState();
-}
-
-class _BottomTabState extends State<BottomTab> {
-  int _selectedIndex = 0;
-
-  List<String> titles = ['Главная', 'Уроки', 'Профиль'];
+  static final List<String> titles = ['Главная', 'Профиль'];
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-    ),
-    Text(
-      'Index 1: Business',
-    ),
+    Main(),
     Profile()
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final selectedIndex = useState(titles.length - 1);
+
+    void onItemTapped(int index) {
+      selectedIndex.value = index;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -41,30 +30,26 @@ class _BottomTabState extends State<BottomTab> {
           fontSize: 28,
           fontWeight: FontWeight.w700,
         ),
-        title: Text(titles[_selectedIndex]),
+        title: Text(titles[selectedIndex.value]),
       ),
       body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions.elementAt(selectedIndex.value),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'Главная',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Профиль',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex.value,
         selectedItemColor: ColorsNP.purple,
         unselectedItemColor: ColorsNP.lightPurple,
-        onTap: _onItemTapped,
+        onTap: onItemTapped,
       ),
     );
   }
