@@ -113,30 +113,30 @@ class SignIn extends HookWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 60),
                     child: CustomButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            print(email.value);
-                            print(password.value);
-                            final response = await Dio().post(
-                              "https://api-dev.new-platform.ipst-dev.com/api/auth/login",
-                              data: {
-                                'email': email.value,
-                                'password': password.value
-                              },
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          print(email.value);
+                          print(password.value);
+                          final response = await Dio().post(
+                            "https://api-dev.new-platform.ipst-dev.com/api/auth/login",
+                            data: {
+                              'email': email.value,
+                              'password': password.value
+                            },
+                          );
+                          print(response.statusCode);
+                          if (response.statusCode == 201) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => BottomTab(),
+                              ),
+                              (route) => false,
                             );
-                            print(response.statusCode);
-                            if (response.statusCode == 201) {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      BottomTab(),
-                                ),
-                                (route) => false,
-                              );
-                            }
                           }
-                        },
-                        title: "вход"),
+                        }
+                      },
+                      title: "вход",
+                    ),
                   ),
                 ],
               ),

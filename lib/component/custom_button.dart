@@ -9,18 +9,20 @@ enum ButtonMode {
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final ButtonMode mode;
-  final String title;
+  final String? title;
   final Color titleColor;
   final Icon? icon;
+  final Widget? child;
 
   const CustomButton({
     super.key,
     required this.onPressed,
     this.mode = ButtonMode.contained,
-    required this.title,
+    this.title,
     this.icon,
     this.titleColor = ColorsNP.purple,
-  });
+    this.child,
+  })  : assert(title != null && child == null || title == null && child != null);
 
   @override
   Widget build(BuildContext context) {
@@ -73,30 +75,32 @@ class CustomButton extends StatelessWidget {
         }(),
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            mainAxisAlignment: icon != null
-                ? MainAxisAlignment.spaceBetween
-                : MainAxisAlignment.center,
-            children: [
-              Text(
-                title.toUpperCase(),
-                style: TextStyle(
-                  color: () {
-                    switch (mode) {
-                      case ButtonMode.outline:
-                        return titleColor;
-                      case ButtonMode.contained:
-                        return Colors.white;
-                    }
-                  }(),
-                  fontFamily: 'Rubik-Bold',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+          child: title == null
+              ? child
+              : Row(
+                  mainAxisAlignment: icon != null
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title!.toUpperCase(),
+                      style: TextStyle(
+                        color: () {
+                          switch (mode) {
+                            case ButtonMode.outline:
+                              return titleColor;
+                            case ButtonMode.contained:
+                              return Colors.white;
+                          }
+                        }(),
+                        fontFamily: 'Rubik-Bold',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    icon != null ? icon! : const SizedBox.shrink()
+                  ],
                 ),
-              ),
-              icon != null ? icon! : const SizedBox.shrink()
-            ],
-          ),
         ),
       ),
     );
