@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:new_platform_test/component/custom_button.dart';
+import 'package:new_platform_test/component/custom_input.dart';
 import 'package:new_platform_test/extension/color_extension.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+class DemoPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // TODO: implement paint
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    throw UnimplementedError();
+  }
+}
 
 class Main extends HookWidget {
   const Main({super.key});
@@ -111,7 +126,42 @@ class Main extends HookWidget {
                               size: 25,
                             ),
                             onTap: () {
-                              print('add');
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title:
+                                        const Text('Вступить в группу по коду'),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 20),
+                                    content: CustomInput(
+                                      labelText: "Введите код группы",
+                                      onSaved: (value) {},
+                                      onChange: (value) {},
+                                      validator:
+                                          ValidationBuilder(localeName: 'ru')
+                                              .maxLength(100)
+                                              .required()
+                                              .build(),
+                                      value: "",
+                                    ),
+                                    actionsPadding: const EdgeInsets.only(
+                                      left: 16,
+                                      right: 16,
+                                      bottom: 20,
+                                    ),
+                                    actions: <Widget>[
+                                      CustomButton(
+                                        title: "вступить в группу",
+                                        onPressed: () {},
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
                             },
                           ),
                         ],
@@ -143,7 +193,7 @@ class Main extends HookWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(bottom: 8),
+                                margin: const EdgeInsets.only(bottom: 8),
                                 child: const Text(
                                   "482",
                                   style: TextStyle(
@@ -153,39 +203,48 @@ class Main extends HookWidget {
                                   ),
                                 ),
                               ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        constraints:
-                                            BoxConstraints(minWidth: 20),
-                                        child: const Text(
-                                          "●",
-                                          style: TextStyle(
-                                            color: ColorsNP.darkPurple,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      const Text(
-                                        "Математика",
-                                        style: TextStyle(
-                                            color: ColorsNP.darkPurple,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                              // TODO: have subjects
+                              // Column(
+                              //   children: [
+                              //     Row(
+                              //       children: [
+                              //         Container(
+                              //           constraints:
+                              //               const BoxConstraints(minWidth: 20),
+                              //           child: const Text(
+                              //             "●",
+                              //             style: TextStyle(
+                              //               color: ColorsNP.darkPurple,
+                              //             ),
+                              //             textAlign: TextAlign.center,
+                              //           ),
+                              //         ),
+                              //         const Text(
+                              //           "Математика",
+                              //           style: TextStyle(
+                              //               color: ColorsNP.darkPurple,
+                              //               fontSize: 14,
+                              //               fontWeight: FontWeight.w400),
+                              //         ),
+                              //       ],
+                              //     )
+                              //   ],
+                              // ),
+                              const Text(
+                                "В данной группе пока нет предметов",
+                                style: TextStyle(
+                                  color: ColorsNP.tomato,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 12),
+                                margin: const EdgeInsets.only(top: 12),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(right: 6),
+                                      margin: const EdgeInsets.only(right: 6),
                                       child: const Icon(
                                         Icons.group,
                                         color: ColorsNP.lightPurple,

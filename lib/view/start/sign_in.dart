@@ -106,6 +106,10 @@ class SignIn extends HookWidget {
                       validator: ValidationBuilder(localeName: 'ru')
                           .minLength(8)
                           .maxLength(100)
+                          .regExp(
+                              RegExp(
+                                  r'^[0-9a-zA-Z ~.,;:\n!@#$%^&*()_+-=`"№?{}[\]<>]+$'),
+                              'Пароль должен содержать: латинские буквы, цифры и спец. символы')
                           .required()
                           .build(),
                     ),

@@ -51,6 +51,7 @@ class CustomInput extends HookWidget {
 
     useEffect(() {
       secure.value = obscureText;
+      return null;
     }, []);
 
     return TextFormField(
@@ -65,6 +66,7 @@ class CustomInput extends HookWidget {
       keyboardType: keyboardType,
       initialValue: value,
       decoration: InputDecoration(
+        errorMaxLines: 10,
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
